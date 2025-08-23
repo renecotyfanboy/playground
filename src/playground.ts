@@ -25,7 +25,7 @@ import {
   getKeyFromValue,
   Problem
 } from "./state";
-import {Example2D, shuffle, parseCsvTextToExamples, generatorFromExamples} from "./dataset";
+import {Example2D, shuffle} from "./dataset";
 import {AppendingLineChart} from "./linechart";
 import * as d3 from 'd3';
 
@@ -244,44 +244,6 @@ function makeGUI() {
   d3.select(`canvas[data-regDataset=${regDatasetKey}]`)
     .classed("selected", true);
 
-  // CSV upload handler: builds a dataset from a user-provided CSV file.
-  let csvInput: any = document.getElementById('csv-upload');
-  if (csvInput) {
-    csvInput.addEventListener('change', function() {
-      let files = (this as HTMLInputElement).files;
-      if (!files || files.length === 0) { return; }
-      let file = files[0];
-      let reader = new FileReader();
-      reader.onload = (e: any) => {
-        try {
-          let text: string = e.target.result || '';
-          let isRegression = state.problem === Problem.REGRESSION;
-          let examples = parseCsvTextToExamples(text, isRegression);
-          if (!examples || examples.length === 0) {
-            alert('No valid rows found in CSV. Expected headers: x, y, values');
-            return;
-          }
-          let gen = generatorFromExamples(examples);
-          if (isRegression) {
-            regDatasets['csv-upload'] = gen;
-            state.regDataset = gen;
-          } else {
-            datasets['csv-upload'] = gen;
-            state.dataset = gen;
-          }
-          generateData();
-          parametersChanged = true;
-          reset();
-        } catch (err) {
-          console.error('Failed to load CSV', err);
-          alert('Failed to parse CSV file. Please ensure it has x,y,values columns.');
-        } finally {
-          (this as HTMLInputElement).value = '';
-        }
-      };
-      reader.readAsText(file);
-    });
-  }
 
   d3.select("#add-layers").on("click", () => {
     if (state.numHiddenLayers >= 6) {
