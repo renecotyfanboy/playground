@@ -169,13 +169,29 @@ limitations under the License.
           <div class="dataset" title="Spiral">
             <canvas class="data-thumbnail" data-dataset="spiral"></canvas>
           </div>
+          <div class="dataset" title="CSV Dummy 1 (Classification)">
+            <canvas class="data-thumbnail" data-dataset="csv1"></canvas>
+          </div>
+          <div class="dataset" title="CSV Dummy 2 (Classification)">
+            <canvas class="data-thumbnail" data-dataset="csv2"></canvas>
+          </div>
           <div class="dataset" title="Plane">
             <canvas class="data-thumbnail" data-regDataset="reg-plane"></canvas>
           </div>
           <div class="dataset" title="Multi gaussian">
             <canvas class="data-thumbnail" data-regDataset="reg-gauss"></canvas>
           </div>
+          <div class="dataset" title="CSV Dummy 1 (Regression)">
+            <canvas class="data-thumbnail" data-regDataset="reg-csv1"></canvas>
+          </div>
+          <div class="dataset" title="CSV Dummy 2 (Regression)">
+            <canvas class="data-thumbnail" data-regDataset="reg-csv2"></canvas>
+          </div>
         </div>
+      </div>
+      <div class="dataset-upload" style="margin-top:8px;">
+        <label for="csv-upload">Load CSV (x,y,values):</label>
+        <input type="file" id="csv-upload" accept=".csv" />
       </div>
       <div>
         <div class="ui-percTrainData">
@@ -420,8 +436,13 @@ limitations under the License.
           'ds.xor': 'Exclusive or',
           'ds.gauss': 'Gaussian',
           'ds.spiral': 'Spiral',
+          'ds.csv1': 'CSV Dummy 1 (Classification)',
+          'ds.csv2': 'CSV Dummy 2 (Classification)',
           'ds.reg-plane': 'Plane',
           'ds.reg-gauss': 'Multi gaussian',
+          'ds.reg-csv1': 'CSV Dummy 1 (Regression)',
+          'ds.reg-csv2': 'CSV Dummy 2 (Regression)',
+          'label[for="csv-upload"]': 'Load CSV (x,y,values):',
           'label[for="percTrainData"]': 'Ratio of training to test data:\u00A0\u00A0<span class="value">XX</span>%',
           'label[for="noise"]': 'Noise:\u00A0\u00A0<span class="value">XX</span>',
           'label[for="batchSize"]': 'Batch size:\u00A0\u00A0<span class="value">XX</span>',
@@ -467,6 +488,11 @@ limitations under the License.
           'ds.spiral': 'Spirale',
           'ds.reg-plane': 'Plan',
           'ds.reg-gauss': 'Multi-gaussien',
+                    'ds.csv1': 'CSV factice 1 (Classification)',
+                    'ds.csv2': 'CSV factice 2 (Classification)',
+                    'ds.reg-csv1': 'CSV factice 1 (Régression)',
+                    'ds.reg-csv2': 'CSV factice 2 (Régression)',
+                    'label[for="csv-upload"]': 'Charger CSV (x,y,values) A0:' ,
           'label[for="percTrainData"]': 'Proportion d\u2019apprentissage vs test\u00A0:\u00A0<span class="value">XX</span>%',
           'label[for="noise"]': 'Bruit\u00A0:\u00A0<span class="value">XX</span>',
           'label[for="batchSize"]': 'Taille de lot\u00A0:\u00A0<span class="value">XX</span>',
@@ -554,8 +580,12 @@ limitations under the License.
         setDsTitle('data-dataset','xor', mapping['xor']);
         setDsTitle('data-dataset','gauss', mapping['gauss']);
         setDsTitle('data-dataset','spiral', mapping['spiral']);
+        setDsTitle('data-dataset','csv1', mapping['csv1']);
+        setDsTitle('data-dataset','csv2', mapping['csv2']);
         setDsTitle('data-regDataset','reg-plane', mapping['reg-plane']);
         setDsTitle('data-regDataset','reg-gauss', mapping['reg-gauss']);
+        setDsTitle('data-regDataset','reg-csv1', mapping['reg-csv1']);
+        setDsTitle('data-regDataset','reg-csv2', mapping['reg-csv2']);
 
         // Remember language
         try { localStorage.setItem('lang', lang); } catch(e) {}

@@ -40,12 +40,18 @@ export let datasets: {[key: string]: dataset.DataGenerator} = {
   "xor": dataset.classifyXORData,
   "gauss": dataset.classifyTwoGaussData,
   "spiral": dataset.classifySpiralData,
+  // Dummy CSV-based classification presets
+  "csv1": dataset.classifyCsvDummy1,
+  "csv2": dataset.classifyCsvDummy2
 };
 
 /** A map between dataset names and functions that generate regression data. */
 export let regDatasets: {[key: string]: dataset.DataGenerator} = {
   "reg-plane": dataset.regressPlane,
-  "reg-gauss": dataset.regressGaussian
+  "reg-gauss": dataset.regressGaussian,
+  // Dummy CSV-based regression presets
+  "reg-csv1": dataset.regressCsvDummy1,
+  "reg-csv2": dataset.regressCsvDummy2
 };
 
 export function getKeyFromValue(obj: any, value: any): string {
