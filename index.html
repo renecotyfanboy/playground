@@ -53,6 +53,12 @@ limitations under the License.
     <h1 class="l--page">Tinker With a <b>Neural Network</b> <span class="optional">Right Here </span>in Your Browser.<br>Don’t Worry, You Can’t Break It. We Promise.</h1>
   </header>
 
+  <!-- Language Switcher -->
+  <div id="lang-switcher" style="position:fixed; top:10px; right:10px; z-index:1000;">
+    <button id="lang-en" class="basic-button" title="Switch to English">EN</button>
+    <button id="lang-fr" class="basic-button" title="Basculer en français">FR</button>
+  </div>
+
   <!-- Top Controls -->
   <div id="top-controls">
     <div class="container l--page">
@@ -220,7 +226,7 @@ limitations under the License.
                 <path d="M0,0 L5,2.5 L0,5 z"/>
               </marker>
             </defs>
-            <path d="M12,30C5,20 2,15 12,0" marker-end="url(#arrow)">
+            <path d="M12,30C5,20 2,15 12,0" marker-end="url(#arrow)"/>
           </svg>
           <div class="label">
             This is the output from one <b>neuron</b>. Hover to see it larger.
@@ -233,7 +239,7 @@ limitations under the License.
                 <path d="M0,0 L5,2.5 L0,5 z"/>
               </marker>
             </defs>
-            <path d="M12,30C5,20 2,15 12,0" marker-end="url(#arrow)">
+            <path d="M12,30C5,20 2,15 12,0" marker-end="url(#arrow)"/>
           </svg>
           <div class="label">
             The outputs are mixed with varying <b>weights</b>, shown by the thickness of the lines.
@@ -394,6 +400,200 @@ limitations under the License.
       </div>
     </div>
   </footer>
+  <script>
+    (function() {
+      var i18n = {
+        en: {
+          'header': 'Tinker With a <b>Neural Network</b> <span class="optional">Right Here </span>in Your Browser.<br>Don\u2019t Worry, You Can\u2019t Break It. We Promise.',
+          '#reset-button@title': 'Reset the network',
+          '#play-pause-button@title': 'Run/Pause',
+          '#next-step-button@title': 'Step',
+          '#top-controls .control .label:contains(Epoch)': 'Epoch',
+          'label[for="learningRate"]': 'Learning rate',
+          'label[for="activations"]': 'Activation',
+          'label[for="regularizations"]': 'Regularization',
+          'label[for="regularRate"]': 'Regularization rate',
+          'label[for="problem"]': 'Problem type',
+          '.column.data h4 span': 'Data',
+          '.ui-dataset p': 'Which dataset do you want to use?',
+          'ds.circle': 'Circle',
+          'ds.xor': 'Exclusive or',
+          'ds.gauss': 'Gaussian',
+          'ds.spiral': 'Spiral',
+          'ds.reg-plane': 'Plane',
+          'ds.reg-gauss': 'Multi gaussian',
+          'label[for="percTrainData"]': 'Ratio of training to test data:\u00A0\u00A0<span class="value">XX</span>%',
+          'label[for="noise"]': 'Noise:\u00A0\u00A0<span class="value">XX</span>',
+          'label[for="batchSize"]': 'Batch size:\u00A0\u00A0<span class="value">XX</span>',
+          '#data-regen-button': 'Regenerate',
+          '#data-regen-button@title': 'Regenerate data',
+          '.column.features h4': 'Features',
+          '.column.features > p': 'Which properties do you want to feed in?',
+          '#hovercard div:first-child': 'Click anywhere to edit.',
+          '.callout.thumbnail .label': 'This is the output from one <b>neuron</b>. Hover to see it larger.',
+          '.callout.weights .label': 'The outputs are mixed with varying <b>weights</b>, shown by the thickness of the lines.',
+          '.column.output h4': 'Output',
+          '.output-stats.ui-percTrainData span': 'Test loss',
+          '.output-stats.train span': 'Training loss',
+          '#colormap + div': 'Colors shows data, neuron and weight values.',
+          'label[for="show-test-data"] .mdl-checkbox__label': 'Show test data',
+          'label[for="discretize"] .mdl-checkbox__label': 'Discretize output',
+          '#article-text h2:nth-of-type(1)': 'Um, What Is a Neural Network?',
+          '#article-text h2:nth-of-type(2)': 'This Is Cool, Can I Repurpose It?',
+          '#article-text h2:nth-of-type(3)': 'What Do All the Colors Mean?',
+          '#article-text h2:nth-of-type(4)': 'What Library Are You Using?',
+          '#article-text h2:nth-of-type(5)': 'Credits',
+          '.github-link@title': 'Source on GitHub',
+          '.links a': 'Source on GitHub',
+          '#lang-en@title': 'Switch to English',
+          '#lang-fr@title': 'Switch to French'
+        },
+        fr: {
+          'header': 'Expérimentez avec un <b>réseau de neurones</b> <span class="optional">directement </span>dans votre navigateur.<br>Ne vous inquiétez pas, vous ne pouvez pas le casser. Promis.',
+          '#reset-button@title': 'Réinitialiser le réseau',
+          '#play-pause-button@title': 'Exécuter / Pause',
+          '#next-step-button@title': 'Avancer d\u2019un pas',
+          '#top-controls .control .label:contains(Epoch)': 'Époque',
+          'label[for="learningRate"]': 'Taux d\u2019apprentissage',
+          'label[for="activations"]': 'Activation',
+          'label[for="regularizations"]': 'Régularisation',
+          'label[for="regularRate"]': 'Taux de régularisation',
+          'label[for="problem"]': 'Type de problème',
+          '.column.data h4 span': 'Données',
+          '.ui-dataset p': 'Quel jeu de données souhaitez-vous utiliser\u00A0?',
+          'ds.circle': 'Cercle',
+          'ds.xor': 'OU exclusif',
+          'ds.gauss': 'Gaussien',
+          'ds.spiral': 'Spirale',
+          'ds.reg-plane': 'Plan',
+          'ds.reg-gauss': 'Multi-gaussien',
+          'label[for="percTrainData"]': 'Proportion d\u2019apprentissage vs test\u00A0:\u00A0<span class="value">XX</span>%',
+          'label[for="noise"]': 'Bruit\u00A0:\u00A0<span class="value">XX</span>',
+          'label[for="batchSize"]': 'Taille de lot\u00A0:\u00A0<span class="value">XX</span>',
+          '#data-regen-button': 'Régénérer',
+          '#data-regen-button@title': 'Régénérer les données',
+          '.column.features h4': 'Caractéristiques',
+          '.column.features > p': 'Quelles propriétés souhaitez-vous fournir\u00A0?',
+          '#hovercard div:first-child': 'Cliquez n\u2019importe où pour modifier.',
+          '.callout.thumbnail .label': 'Voici la sortie d\u2019un <b>neurone</b>. Survolez pour l\u2019agrandir.',
+          '.callout.weights .label': 'Les sorties sont combinées avec des <b>poids</b> variables, indiqués par l\u2019épaisseur des lignes.',
+          '.column.output h4': 'Sortie',
+          '.output-stats.ui-percTrainData span': 'Perte (test)',
+          '.output-stats.train span': 'Perte (apprentissage)',
+          '#colormap + div': 'Les couleurs montrent les valeurs des données, neurones et poids.',
+          'label[for="show-test-data"] .mdl-checkbox__label': 'Afficher les données de test',
+          'label[for="discretize"] .mdl-checkbox__label': 'Discrétiser la sortie',
+          '#article-text h2:nth-of-type(1)': 'Euh, qu\u2019est-ce qu\u2019un réseau de neurones\u00A0?',
+          '#article-text h2:nth-of-type(2)': 'C\u2019est génial, puis-je le réutiliser\u00A0?',
+          '#article-text h2:nth-of-type(3)': 'Que signifient toutes ces couleurs\u00A0?',
+          '#article-text h2:nth-of-type(4)': 'Quelle bibliothèque utilisez-vous\u00A0?',
+          '#article-text h2:nth-of-type(5)': 'Crédits',
+          '.github-link@title': 'Code source sur GitHub',
+          '.links a': 'Code source sur GitHub',
+          '#lang-en@title': 'Basculer en anglais',
+          '#lang-fr@title': 'Basculer en français'
+        }
+      };
+
+      function setText(el, html) {
+        if (!el) return;
+        if (html.indexOf('<') !== -1) {
+          el.innerHTML = html;
+        } else {
+          el.textContent = html;
+        }
+      }
+
+      function applyLang(lang) {
+        var dict = i18n[lang] || i18n.en;
+        // Header special key
+        setText(document.querySelector('header h1'), dict['header']);
+
+        Object.keys(dict).forEach(function(key){
+          if (key === 'header') return;
+          if (key.indexOf('ds.') === 0) return; // handled separately
+          var isAttr = key.indexOf('@') !== -1;
+          var parts = isAttr ? key.split('@') : [key];
+          var selector = parts[0];
+          var attr = isAttr ? parts[1] : null;
+
+          try {
+            // Support :contains fallback by manual filtering
+            var containsMatch = selector.match(/:contains\((.*)\)/);
+            var nodes;
+            if (containsMatch) {
+              var baseSel = selector.replace(/:contains\((.*)\)/, '');
+              nodes = Array.prototype.slice.call(document.querySelectorAll(baseSel)).filter(function(n){
+                return (n.textContent||'').indexOf(containsMatch[1]) !== -1;
+              });
+            } else {
+              nodes = document.querySelectorAll(selector);
+            }
+            if (!nodes || nodes.length === 0) return;
+            for (var i=0;i<nodes.length;i++){
+              if (attr) {
+                nodes[i].setAttribute(attr, dict[key]);
+              } else {
+                setText(nodes[i], dict[key]);
+              }
+            }
+          } catch(e) {
+            // ignore selector errors to be resilient
+          }
+        });
+
+        // Dataset thumbnails titles
+        var mapping = {};
+        Object.keys(dict).forEach(function(k){ if (k.indexOf('ds.')===0) mapping[k.substring(3)] = dict[k]; });
+        function setDsTitle(attr, name, title){
+          var sel = 'canvas[' + attr + '="' + name + '"]';
+          var c = document.querySelector(sel);
+          if (c && c.parentElement) { c.parentElement.setAttribute('title', title); }
+        }
+        setDsTitle('data-dataset','circle', mapping['circle']);
+        setDsTitle('data-dataset','xor', mapping['xor']);
+        setDsTitle('data-dataset','gauss', mapping['gauss']);
+        setDsTitle('data-dataset','spiral', mapping['spiral']);
+        setDsTitle('data-regDataset','reg-plane', mapping['reg-plane']);
+        setDsTitle('data-regDataset','reg-gauss', mapping['reg-gauss']);
+
+        // Remember language
+        try { localStorage.setItem('lang', lang); } catch(e) {}
+        // Visual state
+        var enBtn = document.getElementById('lang-en');
+        var frBtn = document.getElementById('lang-fr');
+        if (enBtn && frBtn) {
+          enBtn.disabled = (lang === 'en');
+          frBtn.disabled = (lang === 'fr');
+        }
+        document.documentElement.setAttribute('lang', lang);
+      }
+
+      function detectDefaultLang(){
+        try {
+          var saved = localStorage.getItem('lang');
+          if (saved) return saved;
+        } catch(e) {}
+        var nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+        return nav.startsWith('fr') ? 'fr' : 'en';
+      }
+
+      function ready(fn){
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', fn);
+        } else { fn(); }
+      }
+
+      ready(function(){
+        var lang = detectDefaultLang();
+        applyLang(lang);
+        var enBtn = document.getElementById('lang-en');
+        var frBtn = document.getElementById('lang-fr');
+        if (enBtn) enBtn.addEventListener('click', function(){ applyLang('en'); });
+        if (frBtn) frBtn.addEventListener('click', function(){ applyLang('fr'); });
+      });
+    })();
+  </script>
   <script src="bundle.js"></script>
   <!-- Google analytics -->
   <script src="analytics.js"></script>
