@@ -573,7 +573,7 @@ function drawNetwork(network: nn.Node[][]): void {
   let targetIdWithCallout = null;
 
   // Draw the input layer separately.
-  let cx = RECT_SIZE / 2 + 50;
+  let cx = featureWidth - RECT_SIZE / 4;
   let nodeIds = Object.keys(INPUTS);
   let maxY = nodeIndexScale(nodeIds.length);
   nodeIds.forEach((nodeId, i) => {

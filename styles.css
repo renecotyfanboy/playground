@@ -249,7 +249,7 @@ header h1 .optional {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: space-betweenspace-between;
+  -webkit-justify-content: space-between;
   justify-content: space-between;
 }
 
@@ -587,7 +587,7 @@ g.column rect {
 /* Features column */
 
 .features.column {
-  width: 10%;
+  width: 15%;
   position: relative;
 }
 
