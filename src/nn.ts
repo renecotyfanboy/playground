@@ -130,6 +130,25 @@ export class Activations {
       return output * (1 - output);
     }
   };
+  public static GELU: ActivationFunction = {
+    output: x => {
+      const c = Math.sqrt(2 / Math.PI);
+      const k = 0.044715;
+      const x3 = x * x * x;
+      const t = (Math as any).tanh(c * (x + k * x3));
+      return 0.5 * x * (1 + t);
+    },
+    der: x => {
+      const c = Math.sqrt(2 / Math.PI);
+      const k = 0.044715;
+      const x2 = x * x;
+      const u = c * (x + k * x2 * x);
+      const t = (Math as any).tanh(u);
+      const sech2 = 1 - t * t;
+      const du_dx = c * (1 + 3 * k * x2);
+      return 0.5 * (1 + t) + 0.5 * x * sech2 * du_dx;
+    }
+  };
   public static LINEAR: ActivationFunction = {
     output: x => x,
     der: x => 1
