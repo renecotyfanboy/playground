@@ -175,7 +175,7 @@ let lossTrain = 0;
 let lossTest = 0;
 let player = new Player();
 let lineChart = new AppendingLineChart(d3.select("#linechart"),
-    ["#777", "black"]);
+    ["#7c3aed", "#22d3ee"]);
 
 function makeGUI() {
   d3.select("#reset-button").on("click", () => {
