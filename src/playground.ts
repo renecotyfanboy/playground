@@ -25,7 +25,7 @@ import {
   getKeyFromValue,
   Problem
 } from "./state";
-import {Example2D, shuffle} from "./dataset";
+import {Example2D, shuffle, preloadHrDataset} from "./dataset";
 import {AppendingLineChart} from "./linechart";
 import * as d3 from 'd3';
 
@@ -1003,7 +1003,9 @@ function drawDatasetThumbnails() {
     let data = dataGenerator(200, 0);
     data.forEach(function(d) {
       context.fillStyle = colorScale(d.label);
-      context.fillRect(w * (d.x + 6) / 12, h * (d.y + 6) / 12, 4, 4);
+      let x = w * (d.x + 6) / 12;
+      let y = h - (h * (d.y + 6) / 12);
+      context.fillRect(x, y, 4, 4);
     });
     d3.select(canvas.parentNode).style("display", null);
   }
@@ -1115,6 +1117,15 @@ function simulationStarted() {
   });
   parametersChanged = false;
 }
+
+// Preload HR CSV and refresh thumbnails/data when ready.
+preloadHrDataset(() => {
+  drawDatasetThumbnails();
+  if (state.dataset === datasets['hr']) {
+    generateData();
+    reset();
+  }
+});
 
 drawDatasetThumbnails();
 initTutorial();

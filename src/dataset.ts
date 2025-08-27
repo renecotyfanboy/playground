@@ -343,3 +343,52 @@ function dist(a: Point, b: Point): number {
   let dy = a.y - b.y;
   return Math.sqrt(dx * dx + dy * dy);
 }
+
+
+// HR diagram dataset (classification) loaded from CSV in sample-data.
+export const HR_DATASET_URL = "sample-data/normalized_hr_diagram_dataset.csv";
+let hrExamplesCache: Example2D[] = null;
+let hrLoading = false;
+let hrLoadedCallbacks: Array<() => void> = [];
+
+export function preloadHrDataset(callback?: () => void) {
+  if (callback) {
+    if (hrExamplesCache) {
+      // Already loaded; invoke immediately.
+      try { callback(); } catch (e) {}
+    } else {
+      hrLoadedCallbacks.push(callback);
+    }
+  }
+  if (hrExamplesCache || hrLoading) return;
+  hrLoading = true;
+  d3.text(HR_DATASET_URL, (err: any, text: string) => {
+    try {
+      if (!err && text) {
+        hrExamplesCache = parseCsvTextToExamples(text, /*isRegression=*/false);
+      } else {
+        console.warn("Failed to load HR dataset CSV", err);
+        hrExamplesCache = [];
+      }
+    } finally {
+      hrLoading = false;
+      // Notify listeners.
+      const cbs = hrLoadedCallbacks.slice();
+      hrLoadedCallbacks = [];
+      cbs.forEach(cb => { try { cb(); } catch (e) {} });
+    }
+  });
+}
+
+export function classifyHrFromCsv(numSamples: number, noise: number): Example2D[] {
+  // Kick off load if needed.
+  if (!hrExamplesCache && !hrLoading) {
+    preloadHrDataset();
+  }
+  if (!hrExamplesCache || hrExamplesCache.length === 0) {
+    return [];
+  }
+  // Ignore noise and numSamples; return a slice for consistency.
+  const n = Math.min(numSamples || hrExamplesCache.length, hrExamplesCache.length);
+  return hrExamplesCache.slice(0, n);
+}

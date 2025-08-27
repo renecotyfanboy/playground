@@ -40,9 +40,10 @@ export let datasets: {[key: string]: dataset.DataGenerator} = {
   "xor": dataset.classifyXORData,
   "gauss": dataset.classifyTwoGaussData,
   "spiral": dataset.classifySpiralData,
-  // Dummy CSV-based classification presets
-  "csv1": dataset.classifyCsvDummy1,
-  "csv2": dataset.classifyCsvDummy2
+  // Embedded HR CSV-based classification preset
+  "hr": dataset.classifyHrFromCsv,
+  // Keep one dummy CSV-like example
+  "csv1": dataset.classifyCsvDummy1
 };
 
 /** A map between dataset names and functions that generate regression data. */
