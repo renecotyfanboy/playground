@@ -31,12 +31,32 @@ import * as d3 from 'd3';
 
 let mainWidth;
 
-// More scrolling
+// More scrolling: toggle the article section on click (expand/collapse)
 d3.select(".more button").on("click", function() {
-  let position = 800;
-  d3.transition()
-    .duration(1000)
-    .tween("scroll", scrollTween(position));
+  const article = document.getElementById("article-text");
+  if (!article) { return; }
+  const el = article as HTMLElement;
+  const isOpen = el.classList.contains("open");
+  const current = window.pageYOffset || document.documentElement.scrollTop || 0;
+  if (!isOpen) {
+    // Expand: add class to trigger CSS transition and scroll to it
+    el.classList.add("open");
+    // compute after adding class to get accurate position
+    const targetTop = article.getBoundingClientRect().top + current - 20;
+    d3.transition()
+      .duration(600)
+      .tween("scroll", scrollTween(targetTop));
+    // Change arrow to up
+    d3.select(this).select("i.material-icons").text("keyboard_arrow_up");
+  } else {
+    // Collapse: remove class to trigger CSS transition and scroll to top
+    el.classList.remove("open");
+    d3.transition()
+      .duration(600)
+      .tween("scroll", scrollTween(0));
+    // Change arrow back to down
+    d3.select(this).select("i.material-icons").text("keyboard_arrow_down");
+  }
 });
 
 function scrollTween(offset) {
@@ -165,7 +185,7 @@ let linkWidthScale = d3.scale.linear()
   .clamp(true);
 let colorScale = d3.scale.linear<string, number>()
                      .domain([-1, 0, 1])
-                     .range(["#f59322", "#e8eaeb", "#0877bd"])
+                     .range(["#cb793a", "#ffffff", "#b01c77"]) 
                      .clamp(true);
 let iter = 0;
 let trainData: Example2D[] = [];
@@ -284,6 +304,15 @@ function makeGUI() {
   });
   // Check/uncheck the checbox according to the current state.
   discretize.property("checked", state.discretize);
+
+  let showBias = d3.select("#show-bias").on("change", function() {
+    state.showBias = this.checked;
+    state.serialize();
+    userHasInteracted();
+    // Toggle visibility of all bias rectangles
+    d3.selectAll("rect[id^='bias-']").style("display", this.checked ? null : "none");
+  });
+  showBias.property("checked", state.showBias);
 
   let percTrain = d3.select("#percTrainData").on("input", function() {
     state.percTrainData = this.value;
@@ -487,7 +516,7 @@ function drawNode(cx: number, cy: number, nodeId: string, isInput: boolean,
         y: RECT_SIZE - BIAS_SIZE + 3,
         width: BIAS_SIZE,
         height: BIAS_SIZE,
-      }).on("mouseenter", function() {
+      }).style("display", state.showBias ? null : "none").on("mouseenter", function() {
         updateHoverCard(HoverType.BIAS, node, d3.mouse(container.node()));
       }).on("mouseleave", function() {
         updateHoverCard(null);

@@ -41,10 +41,6 @@ limitations under the License.
   <script src="lib.js"></script>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <h1 class="l--page">Tinker With a <b>Neural Network</b> <span class="optional">Right Here </span>in Your Browser.<br>Don’t Worry, You Can’t Break It. We Promise.</h1>
-  </header>
 
   <!-- Language Switcher -->
   <div id="lang-switcher" style="position:fixed; top:10px; right:10px; z-index:1000;">
@@ -296,9 +292,9 @@ limitations under the License.
           <svg width="150" height="30" id="colormap">
             <defs>
               <linearGradient id="gradient" x1="0%" y1="100%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#f59322" stop-opacity="1"></stop>
-                <stop offset="50%" stop-color="#e8eaeb" stop-opacity="1"></stop>
-                <stop offset="100%" stop-color="#0877bd" stop-opacity="1"></stop>
+                <stop offset="0%" stop-color="#cb793a" stop-opacity="1"></stop>
+                <stop offset="50%" stop-color="#ffffff" stop-opacity="1"></stop>
+                <stop offset="100%" stop-color="#b01c77" stop-opacity="1"></stop>
               </linearGradient>
             </defs>
             <g class="core" transform="translate(3, 0)">
@@ -315,6 +311,10 @@ limitations under the License.
           <label class="ui-discretize mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="discretize">
             <input type="checkbox" id="discretize" class="mdl-checkbox__input" checked>
             <span class="mdl-checkbox__label label">Discretize output</span>
+          </label>
+          <label class="ui-showBias mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="show-bias">
+            <input type="checkbox" id="show-bias" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label label">Show biases</span>
           </label>
         </div>
       </div>
@@ -414,6 +414,7 @@ limitations under the License.
           '#colormap + div': 'Colors shows data, neuron and weight values.',
           'label[for="show-test-data"] .mdl-checkbox__label': 'Show test data',
           'label[for="discretize"] .mdl-checkbox__label': 'Discretize output',
+          'label[for="show-bias"] .mdl-checkbox__label': 'Show biases',
           '#article-text h2:nth-of-type(1)': 'Um, What Is a Neural Network?',
           '#article-text h2:nth-of-type(2)': 'This Is Cool, Can I Repurpose It?',
           '#article-text h2:nth-of-type(3)': 'What Do All the Colors Mean?',
@@ -463,6 +464,7 @@ limitations under the License.
           '#colormap + div': 'Les couleurs montrent les valeurs des données, neurones et poids.',
           'label[for="show-test-data"] .mdl-checkbox__label': 'Afficher les données de test',
           'label[for="discretize"] .mdl-checkbox__label': 'Discrétiser la sortie',
+          'label[for="show-bias"] .mdl-checkbox__label': 'Afficher les biais',
           '#article-text h2:nth-of-type(1)': 'Euh, qu\u2019est-ce qu\u2019un réseau de neurones\u00A0?',
           '#article-text h2:nth-of-type(2)': 'C\u2019est génial, puis-je le réutiliser\u00A0?',
           '#article-text h2:nth-of-type(3)': 'Que signifient toutes ces couleurs\u00A0?',

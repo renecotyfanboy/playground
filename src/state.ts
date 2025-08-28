@@ -124,6 +124,7 @@ export class State {
     {name: "seed", type: Type.STRING},
     {name: "showTestData", type: Type.BOOLEAN},
     {name: "discretize", type: Type.BOOLEAN},
+    {name: "showBias", type: Type.BOOLEAN},
     {name: "percTrainData", type: Type.NUMBER},
     {name: "x", type: Type.BOOLEAN},
     {name: "y", type: Type.BOOLEAN},
@@ -157,6 +158,7 @@ export class State {
   problem = Problem.CLASSIFICATION;
   initZero = false;
   hideText = false;
+  showBias = true;
   collectStats = false;
   numHiddenLayers = 1;
   hiddenLayerControls: any[] = [];

@@ -65,10 +65,10 @@ export class HeatMap {
       .domain(yDomain)
       .range([height - 2 * padding, 0]);
 
-    // Get a range of colors.
+    // Get a range of colors with white at the center.
     let tmpScale = d3.scale.linear<string, number>()
-        .domain([0, .5, 1])
-        .range(["#f59322", "#e8eaeb", "#0877bd"])
+        .domain([0, 0.5, 1])
+        .range(["#cb793a", "#ffffff", "#b01c77"])
         .clamp(true);
     // Due to numerical error, we need to specify
     // d3.range(0, end + small_epsilon, step)
@@ -173,7 +173,7 @@ export class HeatMap {
         image.data[++p] = c.r;
         image.data[++p] = c.g;
         image.data[++p] = c.b;
-        image.data[++p] = 160;
+        image.data[++p] = 255;
       }
     }
     context.putImageData(image, 0, 0);

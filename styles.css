@@ -355,19 +355,26 @@ header h1 .optional {
 #hovercard {
   display: none;
   position: absolute;
-  padding: 5px;
-  border: 1px solid #aaa;
+  padding: 8px 10px;
+  border: 1px solid #111;
   z-index: 1000;
-  background: #fff;
+  background: #111;
+  color: #fff;
   cursor: default;
-  border-radius: 5px;
+  border-radius: 6px;
   left: 240px;
-  width: 150px;
+  width: 180px;
   top: -20px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
 
 #hovercard input {
   width: 60px;
+  background: #fff;
+  color: #111;
+  border: 1px solid #333;
+  border-radius: 3px;
+  padding: 2px 4px;
 }
 
 /* Main Part*/
@@ -1275,3 +1282,18 @@ a { color: var(--primary-700); }
 .data.column .data-thumbnail { opacity: 0.7; }
 .data.column .data-thumbnail.selected { opacity: 1; }
 #network svg .main-label { fill: var(--text); }
+
+
+/* Smoothly collapsible article/explanation section (hidden by default) */
+#article-text {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 400ms ease, opacity 300ms ease;
+  will-change: max-height, opacity;
+}
+#article-text.open {
+  opacity: 1;
+  /* large enough to fit content; adjust if needed */
+  max-height: 5000px;
+}
