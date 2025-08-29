@@ -148,11 +148,11 @@ export class State {
   learningRate = 0.03;
   regularizationRate = 0;
   showTestData = false;
-  noise = 0;
+  noise = 10;
   batchSize = 10;
   discretize = false;
   tutorial: string = null;
-  percTrainData = 50;
+  percTrainData = 90;
   activation = nn.Activations.TANH;
   regularization: nn.RegularizationFunction = null;
   problem = Problem.CLASSIFICATION;
